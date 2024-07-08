@@ -22,10 +22,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build executable
-        run: pyinstaller --onefile --windowed your_script.py
+        run: pyinstaller --onefile --windowed dvc.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: windows-executable
-          path: dist/your_script.exe
+          path: dist/dvc.exe
