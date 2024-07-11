@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, simpledialog, messagebox
-from cryptography.hazmat.primitives.serialization import NoEncryption
+from cryptography.hazmat.primitives.serialization import NoEncryption, BestAvailableEncryption
 from cryptography.hazmat.primitives.serialization.pkcs12 import load_key_and_certificates, serialize_key_and_certificates
 
 def convert_pkcs12_to_legacy(infile, outfile, password):
@@ -23,7 +23,8 @@ def convert_pkcs12_to_legacy(infile, outfile, password):
             key=private_key,
             cert=certificate,
             cas=additional_certificates,
-            encryption_algorithm=NoEncryption()
+        #    encryption_algorithm=NoEncryption()
+            encryption_algorithm=BestAvailableEncryption(password.encode('utf-8')) if password else NoEncryption()
         )
         
         # Write the new p12 file
